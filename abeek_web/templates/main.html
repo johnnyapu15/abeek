@@ -1,0 +1,12 @@
+{% extends "layout.html" %}
+{% block body %}
+      <div class="getting">
+        <!--When getting on the bus -->
+      {% if session.get_on %}
+        <a lang="en" href="{{ url_for('add_on') }}">GETTING ON!</a>
+        <!--When getting off the bus (Ctnled by app, delecat) -->
+      {% elif not session.get_off %}
+        <a lang = "en" href="{{ url_for('add_off') }}">GETTING OUT!(This btn'll be deleted)</a>
+      {% endif %}
+    </div>
+{% endblock %}

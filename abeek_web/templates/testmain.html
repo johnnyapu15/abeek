@@ -1,0 +1,18 @@
+{% extends "layout.html" %} 
+{% block body %}
+
+  <form class="f" lang="en" action="{{ url_for('isPaying') }}" method=post>
+    <dl>
+      <dt>USER ID
+      <input type=text name=user_id>
+      
+      <dt>PRICE
+      <input type=text name=price>
+      <dt>
+      <input type="radio" name="getting" value="get_on">GET ON!
+          <input type="radio" name="getting" value="get_off">GET OFF!
+      <input type=submit value=SUBMIT!>
+    </dl>
+  </form>
+
+{% endblock %}

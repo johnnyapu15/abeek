@@ -1,0 +1,18 @@
+<!doctype html>
+<title>Johnnyapu15</title>
+<link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
+
+<link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
+
+
+<div class = "page">
+  <h1 lang="en" class="title">IMPROVED PAYMENT SYSTEM</h1>
+  <div class="box">
+
+      {% for message in get_flashed_messages() %}
+    <div class="flash">{{ message }}</div>
+      {% endfor %}
+  
+  {% block body %}{% endblock %}
+  </div>
+</div>
