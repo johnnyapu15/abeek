@@ -5,7 +5,7 @@ from flask import *
 DEBUG = True
 SECRET_KEY = 'dev key'
 #DB conf
-HOST = "52.79.194.219"
+HOST = "13.124.155.182"
 USERNAME = "team"
 PASSWORD = "team"
 DBNAME = "abeek"
@@ -126,4 +126,4 @@ def logout():
     return redirect(url_for('show_t1'))
 
 if __name__ == '__main__':
-    app.run()
+    app.run(host='0.0.0.0')
