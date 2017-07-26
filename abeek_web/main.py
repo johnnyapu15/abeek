@@ -103,27 +103,5 @@ def show_t():
     T = [dict(user_id = row[0], timevalue=row[1], getting=row[2], price=row[3]) for row in cur.fetchall()]
     return render_template('show_t.html', entries = T)
 
-
-
-@app.route('/login', methods=['GET', 'POST'])
-def login():
-    err = None
-    if request.method == 'POST':
-        if request.form['username'] != app.config['USERNAME']:
-            err = 'Invalid username'
-        elif request.form['password'] != app.config['PASSWORD']:
-            err = 'Invalid password'
-        else:
-            session['logged_in'] = True
-            flash('You were logged in!')
-            return redirect(url_for('show_t1'))
-    return render_template('login.html', error = err)
-
-@app.route('/logout')
-def logout():
-    session.pop('logged_in', None)
-    flash('You were logged out!')
-    return redirect(url_for('show_t1'))
-
 if __name__ == '__main__':
     app.run(host='0.0.0.0')
