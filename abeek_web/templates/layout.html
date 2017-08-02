@@ -1,13 +1,16 @@
 <!doctype html>
-<title>Johnnyapu15</title>
-<link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
+<title>IMPROVED PAYMENT SYSTEM</title>
+
+  <meta http-equiv='Content-Type' content='text/html; charset=utf-8' />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, target-densityDpi=device-dpi" />
 
 <link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
-
-
+<link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
 <div class = "page">
-  <h1 lang="en" class="title">IMPROVED PAYMENT SYSTEM</h1>
-  <div class="box">
+  <div data-role="header">
+  <p class="title" lang="en">IMPROVED PAYMENT SYSTEM</p>
+  </div>
+  <div data-role="content" class="box">
 
       {% for message in get_flashed_messages() %}
     <div class="flash">{{ message }}</div>
@@ -16,3 +19,5 @@
   {% block body %}{% endblock %}
   </div>
 </div>
+
+

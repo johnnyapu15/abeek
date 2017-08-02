@@ -2,8 +2,8 @@
 
 
 body{
-    transform: scale(2);
-    margin:120px auto;
+    margin:auto;
+    background-color: rgb(230,230,230);
 }
 
 h1, h2, h3, h4, p, page{
@@ -12,11 +12,15 @@ h1, h2, h3, h4, p, page{
     font-family:"Nanum Gothic", sans-serif;
 }
 
-page:lang(en), h1:lang(en), h2:lang(en), h3:lang(en), h4:lang(en), p:lang(en), a:lang(en){
+.f:lang(en), page:lang(en), h1:lang(en), h2:lang(en), h3:lang(en), h4:lang(en), p:lang(en), a:lang(en){
     font-family:"Oswald", sans-serif;
     
 }
-
+.centered{
+    text-align: center;
+    margin: auto;
+    
+}
 h2{
     text-align: left;
 }
@@ -28,13 +32,16 @@ table{
 
 }
 .title{
-    border-style:hidden;
-    border-bottom:1px solid  rgb(120,120,120);;
-    max-width:250px;
+    color: rgb(255,255,255);
+    background-color: rgb(0,0,0);
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
     margin:auto;
 }
 
-.flash{    
+.flash{   
+    
     text-align:center;
     display:inline;
     border-left: 22.5px solid rgb(120,120,120);
@@ -43,16 +50,23 @@ table{
 
 .box{
     margin:auto;
-
     max-width: 550px;
     
     color:rgb(120,120,120);
 }
 
 .f, .getting{
+    
     margin:auto;
     text-align:center;
     max-width: 200px;
+
+}
+
+.hrefText {
+    padding: 4px;
+    text-decoration: none;
+    color: rgb(90, 90, 90);
+    border: 2px solid;
     
-    color:rgb(120,120,120);
 }

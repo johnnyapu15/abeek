@@ -51,11 +51,13 @@ def testmain():
             session['getting'] = 1
         elif request.form['getting'] == 'get_off':
             session['getting'] = 0
+        print("submit : " + request.form['user_id'])
         return redirect(url_for('isPaying'))
+    print("first : ")
     return render_template('testmain.html', error = err)
 
 ###버스의 비콘 정보를 받은 후 결제할 지를 결정하는 페이지
-@app.route('/paying', methods=['post'])
+@app.route('/paying', methods=['post','get'])
 def isPaying():
     if request.method == 'POST':
         session['user_id'] = request.form['user_id']
@@ -65,7 +67,9 @@ def isPaying():
             session['getting'] = 1
         elif request.form['getting'] == 'get_off':
             session['getting'] = 0
-        return render_template('main.html')
+        print("submit : " + request.form['user_id'])
+    print("완료 " + session['user_id'] + " " + str(session['getting']))
+
     return render_template('main.html')
 
 
