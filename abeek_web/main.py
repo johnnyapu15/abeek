@@ -67,9 +67,6 @@ def isPaying():
             session['getting'] = 1
         elif request.form['getting'] == 'get_off':
             session['getting'] = 0
-        print("submit : " + request.form['user_id'])
-    print("완료 " + session['user_id'] + " " + str(session['getting']))
-
     return render_template('main.html')
 
 
