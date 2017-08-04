@@ -14,7 +14,7 @@ DBNAME = "abeek"
 
 
 #SQL QUERY
-q_001 = "SELECT (user_id, time_value, getting, price, bus_id) FROM PAYMENTS"
+q_001 = "SELECT user_id, time_value, getting, price, bus_id FROM PAYMENTS"
 
 #PAYMENT에 결제 내역을 저장. 유저아이디와 승하차 정보 필요.
 q_002 = "INSERT INTO PAYMENTS (USER_ID, TIME_VALUE, GETTING, PRICE) " + \
