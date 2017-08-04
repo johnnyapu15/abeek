@@ -1,6 +1,5 @@
 #-*- coding:utf-8 -*-
 
-import cx_Oracle
 import pymysql
 from flask import *
 
