@@ -1,15 +1,16 @@
 #-*- coding:utf-8 -*-
 
 import cx_Oracle
+import pymysql
 from flask import *
 
 #configuration
 DEBUG = True
 SECRET_KEY = 'dev key'
 #DB conf
-HOST = "13.124.155.182"
-USERNAME = "team"
-PASSWORD = "team"
+HOST = "localhost"
+USERNAME = "abeek"
+PASSWORD = "abeek"
 DBNAME = "abeek"
 
 
@@ -18,7 +19,7 @@ q_001 = "SELECT * FROM PAYMENTS"
 
 #PAYMENT에 결제 내역을 저장. 유저아이디와 승하차 정보 필요.
 q_002 = "INSERT INTO PAYMENTS (USER_ID, TIME_VALUE, GETTING, PRICE) " + \
-        "VALUES (:1, SYSDATE, :2, :3)" 
+        "VALUES (%s, NOW(), %s, %s)" 
 
 
 # 
@@ -27,8 +28,7 @@ app.config.from_object(__name__)
 
 
 def connect_db():
-    dsn = cx_Oracle.makedsn(HOST, 1521, "XE")
-    return cx_Oracle.connect(USERNAME, PASSWORD, dsn)
+    return pymysql.connect(host=HOST, user=USERNAME, password=PASSWORD, db=DBNAME, charset='utf8')
 
 @app.before_request
 def before_request():
