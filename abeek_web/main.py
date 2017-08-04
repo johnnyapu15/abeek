@@ -14,7 +14,7 @@ DBNAME = "abeek"
 
 
 #SQL QUERY
-q_001 = "SELECT * FROM PAYMENTS"
+q_001 = "SELECT (user_id, time_value, getting, price, bus_id) FROM PAYMENTS"
 
 #PAYMENT에 결제 내역을 저장. 유저아이디와 승하차 정보 필요.
 q_002 = "INSERT INTO PAYMENTS (USER_ID, TIME_VALUE, GETTING, PRICE) " + \
@@ -102,7 +102,7 @@ def complete():
 def show_t():
     cur = g.db.cursor()
     cur.execute(q_001)
-    T = [dict(user_id = row[0], timevalue=row[1], getting=row[2], price=row[3]) for row in cur.fetchall()]
+    T = [dict(user_id = row[0], timevalue=row[1], getting=row[2], price=row[3], bus_id=row[4]) for row in cur.fetchall()]
     return render_template('show_t.html', entries = T)
 
 if __name__ == '__main__':
