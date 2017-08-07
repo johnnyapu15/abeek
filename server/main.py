@@ -117,7 +117,7 @@ def add():
         flash('Getting-Off data was successfully saved.')
     io.emit('num')
     cur.execute(q_002, \
-                [session['user_id'], session['getting'], session['price']], session['bus_id'])
+                [session['user_id'], session['getting'], session['price'], session['bus_id']])
     g.db.commit()
     
     return redirect(url_for('complete'))
