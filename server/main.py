@@ -25,7 +25,7 @@ q_002 = "INSERT INTO PAYMENTS (USER_ID, TIME_VALUE, GETTING, PRICE) " + \
 # 
 app = Flask(__name__)
 app.config.from_object(__name__)
-io = SocketIO(app, host="0,0,0,0", threaded=True)
+io = SocketIO(app, host="0.0.0.0", threaded=True)
 clients = dict()
 
 def connect_db():
