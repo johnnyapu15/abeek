@@ -18,6 +18,9 @@
     }
     socket.on('connect', function () {
     });
+    socket.on('disconnect', function () {
+        socket.emit('disconnect')
+    });
     socket.on('init', function(data){
         tempAlert('init', 1000)
          document.getElementById('bus').textContent = data + ' - BUS'

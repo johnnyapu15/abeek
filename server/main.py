@@ -63,10 +63,13 @@ def testmain():
 @app.route('/bus', methods=['post'])
 def busMain():
     if request.method == 'POST':
-        session['bus_id'] = request.form['bus_id']
-        print("posting bus id... " + session['bus_id'])
-    return render_template('bus-client.html')
-
+        if clients.get(request.form['bus_id']) == None:
+            session['bus_id'] = request.form['bus_id']
+            print("posting bus id... " + session['bus_id'])
+            return render_template('bus-client.html')
+        else:
+            flash('Bus number %s is already in use.' % request.form['bus_id'])
+            return render_template('testmain.html')
 @io.on('connect')
 def connected():
     before_request()
@@ -74,10 +77,8 @@ def connected():
     if not (tmpb is None):
         print("%s bus-module connected." % (tmpb))
         clients[tmpb] = request.sid
-        print(clients[tmpb] + "d여기")
         io.emit('init', tmpb, room=clients[session['bus_id']])
         io.emit('num', room=clients[session['bus_id']])
-        io.emit('message', tmpb, room=clients[session['bus_id']])
         print("완료 " + clients[tmpb])
 
 
@@ -91,14 +92,18 @@ def disconnected():
 @app.route('/paying', methods=['post','get'])
 def isPaying():
     if request.method == 'POST':
-        session['user_id'] = request.form['user_id']
-        session['price'] = request.form['price']
-        session[request.form['getting']] = True
-        session['bus_id'] =request.form['bus_id']
-        if request.form['getting'] == 'get_on':
-            session['getting'] = 1
-        elif request.form['getting'] == 'get_off':
-            session['getting'] = 0
+        if clients.get(request.form['bus_id']) != None:
+            session['user_id'] = request.form['user_id']
+            session['price'] = request.form['price']
+            session[request.form['getting']] = True
+            session['bus_id'] = request.form['bus_id']
+            if request.form['getting'] == 'get_on':
+                session['getting'] = 1
+            elif request.form['getting'] == 'get_off':
+                session['getting'] = 0
+        else:
+            flash('There is no bus %s.' % request.form['bus_id'])
+            return render_template('testmain.html')
     return render_template('main.html')
 
 
