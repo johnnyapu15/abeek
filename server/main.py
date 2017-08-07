@@ -102,7 +102,7 @@ def isPaying():
 
 @app.route('/add', methods=['GET', 'POST'])
 def add():
-    if not (session.get('getting') == None):
+    if (session.get('getting') == None):
         abort(401)
     cur = g.db.cursor()
     
