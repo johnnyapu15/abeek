@@ -36,7 +36,8 @@ def before_request():
 
 @app.teardown_request
 def teardown_request(exception):
-    g.db.close()
+    if g.db != None:
+        g.db.close()
 
 ###버스의 비콘 정보를 받은 후 결제할 지를 결정하는 페이지
 ######앱에서 세션을 채우고 페이지에 들어갈 때는 바로 해도 되겠지만
@@ -93,6 +94,7 @@ def isPaying():
         session['user_id'] = request.form['user_id']
         session['price'] = request.form['price']
         session[request.form['getting']] = True
+        session['bus_id'] =request.form['bus_id']
         if request.form['getting'] == 'get_on':
             session['getting'] = 1
         elif request.form['getting'] == 'get_off':
