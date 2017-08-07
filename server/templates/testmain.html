@@ -1,0 +1,32 @@
+{% extends "layout.html" %} 
+{% block body %}
+
+  <form class="f" lang="en" action="{{ url_for('isPaying') }}" method="post">
+    <dl>
+      <dt>USER ID<br>
+      <input type=text name=user_id>
+      <br>
+      <dt>PRICE<br>
+      <input type=text name=price><br>
+      <dt>
+        <dt>BUS ID<br>
+      <input type=text name=bus_id><br>
+      <input type="radio" name="getting" value="get_on" checked="checked">GET ON!
+      <br><input type="radio" name="getting" value="get_off">GET OFF!
+      <br><br>
+      <button  type="submit" class="hrefText f" lang="en" style="background-color:inherit">GETTING!</button>
+    </dl>
+  </form>
+  <form class="f" lang="en" action="{{ url_for('busMain') }}" method="post">
+    <br><br>
+    <dt>BUS ID<br>
+      <input type=text name=bus_id><br><br>
+    <button  type="submit" class="hrefText f" lang="en" style="background-color:inherit">BUS CLIENT</button>
+    <br><br>
+    <a class="centered" style="text-align:justify;"> 이 화면은 테스트용입니다. 완성된 프로세스에서는 
+      스마트폰 앱의 블루투스를 통해 수신한 비콘의 데이터를 가지고
+      이 화면의 정보들을 세션에 채워넣을 것입니다.
+       </a>
+    </form>
+
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+{% block body %}
+      <div class="centered" style="
+      margin-top: 90%;
+      ">
+        
+        <!--When getting on the bus -->
+      {% if session.getting == 1 %}
+        <a class="hrefText " lang="en" href="{{ url_for('add') }}" 
+        >GETTING ON!</a>
+        <!--When getting off the bus (Ctnled by app, delecat) -->
+      {% elif session.getting == 0 %}
+        <a class="hrefText" lang = "en" href="{{ url_for('add') }}" 
+        >GETTING OUT!(This btn'll be deleted)</a>
+      {% endif %}
+    </div>
+{% endblock %}

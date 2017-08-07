@@ -1,0 +1,27 @@
+{% extends "layout.html" %}
+{% block body %}
+  <table style="width:100%">
+  <tr>
+    <th>USER_ID</th>
+    <th>BUS_ID</th>
+    <th>GETTING?</th>
+    <th>PRICE</th>
+    <th>TIME</th> 
+  </tr>
+
+  {% for entry in entries %}
+    <tr>
+      <td>{{ entry.user_id }}</td>
+      <td>{{ entry.bus_id }}</td>
+      <td>{{ entry.getting }}</td>
+      <td>{{ entry.price }}</td>
+      <td>{{ entry.timevalue }}</td>
+    </tr>
+  {% else %}
+    <tr>
+      <td>Nope</td>
+    </tr>
+  {% endfor %}
+  </table>
+{% endblock %}
+

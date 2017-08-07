@@ -1,0 +1,42 @@
+{% extends "layout.html" %} {% block body %}
+<h1>Bus test page</h1>
+<p lang='en' class='f' id='bus'>bus</p>
+<p lang='en' id='num'>num</p>
+<script type="text/javascript" src="//code.jquery.com/jquery-2.1.3.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.6/socket.io.min.js"></script>
+<script type="text/javascript" charset="utf-8">
+    num = 0;
+    socket = io.connect('http://' + document.domain + ':' + location.port);
+    function tempAlert(msg, duration) {
+        var el = document.createElement("div");
+        el.setAttribute("style", "text-align:center;top:50%;margin:auto;background-color:white;");
+        el.innerHTML = msg;
+        setTimeout(function () {
+            el.parentNode.removeChild(el);
+        }, duration);
+        document.body.appendChild(el);
+    }
+    socket.on('connect', function () {
+    });
+    socket.on('init', function(data){
+        tempAlert('init', 1000)
+         document.getElementById('bus').textContent = data + ' - BUS'
+    });
+    socket.on('num', function(){
+         document.getElementById('num').textContent = String(num)
+    });
+    socket.on('message', function () {
+
+    });
+
+    socket.on('get_on', function (data) {
+        num++
+        tempAlert(data + "get on.", 1000)
+    });
+    socket.on('get_off', function (data) {
+        num--
+        tempAlert(data + "get off.", 1000)
+    });
+
+</script>
+{% endblock %}
