@@ -14,7 +14,7 @@ h1, h2, h3, h4, p, page{
 }
 
 .f:lang(en), page:lang(en), h1:lang(en), h2:lang(en), h3:lang(en), h4:lang(en), p:lang(en), a:lang(en){
-    font-family:"Oswald", sans-serif;
+    font-family:"Oswald","Nanum Gothic", sans-serif;
     
 }
 .centered{

@@ -75,16 +75,18 @@ def connected():
     before_request()
     tmpb = session['bus_id']
     if not (tmpb is None):
-        print("%s bus-module connected." % (tmpb))
-        clients[tmpb] = request.sid
-        io.emit('init', tmpb, room=clients[session['bus_id']])
-        io.emit('num', room=clients[session['bus_id']])
-        print("완료 " + clients[tmpb])
+        if (tmpb != ""):
+            clients[tmpb] = request.sid
+            io.emit('init', tmpb, room=clients[session['bus_id']])
+            io.emit('num', room=clients[session['bus_id']])
+            print("%s bus-module connected." % (tmpb))
+        else:
+            flash("Can't blank for bus number.")
 
 
 @io.on('disconnect')
 def disconnected():
-    print ("%s disconnected" % (request.sid))
+    print ("%s bus-module disconnected" % (request.sid))
     del clients[session['bus_id']]
 
 
