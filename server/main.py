@@ -75,6 +75,8 @@ def connected():
     tmpb = session['bus_id']
     if not (tmpb is None):
         if (tmpb != ""):
+            if clients.get(tmpb) == None:
+                clients[tmpb] = 0
             join_room(tmpb)
             io.emit('init', tmpb, room=tmpb)
             io.emit('num', room=tmpb)
