@@ -28,6 +28,7 @@ app.config.from_object(__name__)
 io = SocketIO(app)
 clients = dict()
 
+
 def connect_db():
     return pymysql.connect(host=HOST, user=USERNAME, password=PASSWORD, db=DBNAME, charset='utf8')
 @app.before_request
@@ -63,23 +64,21 @@ def testmain():
 @app.route('/bus', methods=['post'])
 def busMain():
     if request.method == 'POST':
-        if clients.get(request.form['bus_id']) == None:
+        if (request.form['bus_id']) != None:
             session['bus_id'] = request.form['bus_id']
             print("posting bus id... " + session['bus_id'])
             return render_template('bus-client.html')
-        else:
-            flash('Bus number %s is already in use.' % request.form['bus_id'])
-            return render_template('testmain.html')
+
 @io.on('connect')
 def connected():
     before_request()
     tmpb = session['bus_id']
     if not (tmpb is None):
         if (tmpb != ""):
-            clients[tmpb] = request.sid
-            io.emit('init', tmpb, room=clients[session['bus_id']])
-            io.emit('num', room=clients[session['bus_id']])
-            print("%s bus-module connected." % (tmpb))
+            join_room(tmpb)
+            io.emit('init', tmpb, room=tmpb)
+            io.emit('num', room=tmpb)
+            print("%s bus-module connected." % (tmpb + ' - ' + request.sid))
         else:
             flash("Can't blank for bus number.")
 
@@ -87,7 +86,6 @@ def connected():
 @io.on('disconnect')
 def disconnected():
     print ("%s bus-module disconnected" % (request.sid))
-    del clients[session['bus_id']]
 
 
 ###버스의 비콘 정보를 받은 후 결제할 지를 결정하는 페이지
@@ -117,10 +115,10 @@ def add():
     
 
     if session.get('getting') == 1:
-        io.emit('get_on', str(session['user_id']), room=clients[session['bus_id']])
+        io.emit('get_on', str(session['user_id']), room=session['bus_id'])
         flash('Getting-On data was successfully saved.')
     elif session.get('getting') == 0:
-        io.emit('get_off', str(session['user_id']), room=clients[session['bus_id']])
+        io.emit('get_off', str(session['user_id']), room=session['bus_id'])
         flash('Getting-Off data was successfully saved.')
     io.emit('num')
     cur.execute(q_002, \
