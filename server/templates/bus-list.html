@@ -24,6 +24,7 @@
 <script type="text/javascript" charset="utf-8">
     num = 0;
     socket = io.connect('http://' + document.domain + ':' + location.port);
+    emit('busListJoin')
     function tempAlert(msg, duration) {
         var el = document.createElement("div");
         el.setAttribute("style", "text-align:center;top:50%;margin:auto;background-color:white;");
@@ -34,7 +35,6 @@
         document.body.appendChild(el);
     }
     socket.on('connect', function () {
-        emit('busListJoin')
     });
     socket.on('disconnect', function () {
     });
