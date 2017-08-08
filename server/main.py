@@ -146,6 +146,7 @@ def show_t():
 
 @app.route('/show_bt')
 def show_bt():
+    T = list()
     for i in clients.keys():
         T.append(dict(bus_id=i, num=clients[i]))
     return render_template('bus-list.html', entries = T)
