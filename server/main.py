@@ -79,7 +79,7 @@ def connected():
                 clients[tmpb] = 0
             join_room(tmpb)
             io.emit('init', tmpb, room=tmpb)
-            io.emit('num', room=tmpb)
+            io.emit('num', clients[tmpb], room=tmpb)
             print("%s bus-module connected." % (tmpb + ' - ' + request.sid))
         else:
             flash("Can't blank for bus number.")
@@ -119,10 +119,12 @@ def add():
     if session.get('getting') == 1:
         io.emit('get_on', str(session['user_id']), room=session['bus_id'])
         flash('Getting-On data was successfully saved.')
+        clients[session['bus_id']] += 1
     elif session.get('getting') == 0:
         io.emit('get_off', str(session['user_id']), room=session['bus_id'])
         flash('Getting-Off data was successfully saved.')
-    io.emit('num')
+        clients[session['bus_id']] -= 1
+    io.emit('num', clients[session['bus_id']], room=session['bus_id'])
     cur.execute(q_002, \
                 [session['user_id'], session['getting'], session['price'], session['bus_id']])
     g.db.commit()
