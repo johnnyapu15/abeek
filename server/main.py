@@ -148,13 +148,14 @@ def show_t():
 @io.on('busListUpdate')
 @app.route('/show_bt')
 def show_bt():
-    join_room('buslist')
     T = list()
     for i in clients.keys():
         T.append(dict(bus_id=i, num=clients[i]))
     return render_template('bus-list.html', entries = T)
 
-
+@io.on('busListJoin')
+def join_bt():
+    join_room('buslist')
 
 if __name__ == '__main__':
     io.run(app, host="0.0.0.0")

@@ -34,6 +34,7 @@
         document.body.appendChild(el);
     }
     socket.on('connect', function () {
+        emit('busListJoin')
     });
     socket.on('disconnect', function () {
     });
