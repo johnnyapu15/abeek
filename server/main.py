@@ -80,6 +80,7 @@ def connected():
             join_room(tmpb)
             io.emit('init', tmpb, room=tmpb)
             io.emit('num', clients[tmpb], room=tmpb)
+            io.emit('update', room='buslist')
             print("%s bus-module connected." % (tmpb + ' - ' + request.sid))
         else:
             flash("Can't blank for bus number.")
