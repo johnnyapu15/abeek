@@ -37,8 +37,7 @@ def before_request():
 
 @app.teardown_request
 def teardown_request(exception):
-    if g.db != None:
-        g.db.close()
+    g.db.close()
 
 ###버스의 비콘 정보를 받은 후 결제할 지를 결정하는 페이지
 ######앱에서 세션을 채우고 페이지에 들어갈 때는 바로 해도 되겠지만
@@ -80,10 +79,11 @@ def connected():
             join_room(tmpb)
             io.emit('init', tmpb, room=tmpb)
             io.emit('num', clients[tmpb], room=tmpb)
-            io.emit('update', room='buslist')
+            io.emit('update', clients, room='buslist')
             print("%s bus-module connected." % (tmpb + ' - ' + request.sid))
         else:
             flash("Can't blank for bus number.")
+
 
 
 @io.on('disconnect')
@@ -126,7 +126,7 @@ def add():
         flash('Getting-Off data was successfully saved.')
         clients[session['bus_id']] -= 1
     io.emit('num', clients[session['bus_id']], room=session['bus_id'])
-    io.emit('update', room='buslist')
+    io.emit('update',clients, room='buslist')
     cur.execute(q_002, \
                 [session['user_id'], session['getting'], session['price'], session['bus_id']])
     g.db.commit()
@@ -147,7 +147,7 @@ def show_t():
     return render_template('show_t.html', entries = T)
 
 @io.on('busListUpdate')
-@app.route('/show_bt')
+@app.route('/show_bt', methods=['GET','POST'])
 def show_bt():
     T = list()
     for i in clients.keys():
@@ -156,7 +156,9 @@ def show_bt():
 
 @io.on('busListJoin')
 def join_bt():
+    print('joineeeeeeeeeeeeeeeeeeed')
     join_room('buslist')
+    io.emit('update',clients, room='buslist')
 
 if __name__ == '__main__':
     io.run(app, host="0.0.0.0")

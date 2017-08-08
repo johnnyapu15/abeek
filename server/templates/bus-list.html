@@ -1,29 +1,12 @@
 {% extends "layout.html" %} {% block body %}
-  <table style="width:100%">
-  <tr>
 
-    <th>버스 번호</th>
-    <th>승객 수</th>
+<div id = 't'></div>
 
-  </tr>
-
-  {% for entry in entries %}
-    <tr>
-      <td>{{ entry.bus_id }}</td>
-      <td>{{ entry.num }}</td>
-
-    </tr>
-  {% else %}
-    <tr>
-      <td>버스 목록이 비어있습니다.</td>
-    </tr>
-  {% endfor %}
-  </table>
 <script type="text/javascript" src="//code.jquery.com/jquery-2.1.3.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.6/socket.io.min.js"></script>
 <script type="text/javascript" charset="utf-8">
     socket = io.connect('http://' + document.domain + ':' + location.port);
-    socket.emit('busListJoin');
+    
     function tempAlert(msg, duration) {
         var el = document.createElement("div");
         el.setAttribute("style", "text-align:center;top:50%;margin:auto;background-color:white;");
@@ -34,14 +17,37 @@
         document.body.appendChild(el);
     };
     socket.on('connect', function () {
+        socket.emit('busListJoin');
     });
     socket.on('disconnect', function () {
     });
 
-    socket.on('update', function () {
-        socket.emit('busListUpdate');
-    });
+    socket.on('update', function (data) {
 
+        var t = document.getElementById('t');
+
+        t.innerHTML = '<table style="width:100%"><tr><th>버스 번호</th><th>승객 수</th></tr><tbody id = "mtb">'
+ 
+        if (data!=""){
+
+            for (var entry in data){
+
+                var row = mtb.insertRow( mtb.rows.length ); // 하단에 추가
+                var cell1 = row.insertCell(0);
+                var cell2 = row.insertCell(1);
+                cell1.innerHTML = entry
+                cell2.innerHTML = data[entry]
+            }
+
+            
+        }
+        else{
+            var row = mtb.insertRow( 1 ); // 하단에 추가
+            var cell1 = row.insertCell(0);
+            cell1 = '버스 목록이 비어있습니다.'
+        }
+        t.innerHTML += '</tbody></table>'
+    });
 
 </script>
 {% endblock %}
