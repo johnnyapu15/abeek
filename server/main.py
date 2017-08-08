@@ -130,7 +130,7 @@ def add():
     cur.execute(q_002, \
                 [session['user_id'], session['getting'], session['price'], session['bus_id']])
     g.db.commit()
-    
+    cur.close()
     return redirect(url_for('complete'))
 
 
