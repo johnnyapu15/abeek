@@ -72,7 +72,7 @@ def busMain():
             return render_template('testmain.html')
 @io.on('connect')
 def connected():
-    before_request()
+    #before_request()
     tmpb = session['bus_id']
     if not (tmpb is None):
         if (tmpb != ""):
