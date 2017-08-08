@@ -40,7 +40,7 @@
     });
 
     socket.on('update', function () {
-        emit('busListUpdate')
+        socket.emit('busListUpdate')
     });
 
 
