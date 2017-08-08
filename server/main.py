@@ -125,6 +125,7 @@ def add():
         flash('Getting-Off data was successfully saved.')
         clients[session['bus_id']] -= 1
     io.emit('num', clients[session['bus_id']], room=session['bus_id'])
+    io.emit('update', room='buslist')
     cur.execute(q_002, \
                 [session['user_id'], session['getting'], session['price'], session['bus_id']])
     g.db.commit()
@@ -144,8 +145,10 @@ def show_t():
     T = [dict(user_id = row[0], timevalue=row[1], getting=row[2], price=row[3], bus_id=row[4]) for row in cur.fetchall()]
     return render_template('show_t.html', entries = T)
 
+@io.on('busListUpdate')
 @app.route('/show_bt')
 def show_bt():
+    join_room('buslist')
     T = list()
     for i in clients.keys():
         T.append(dict(bus_id=i, num=clients[i]))

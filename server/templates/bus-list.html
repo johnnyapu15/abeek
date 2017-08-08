@@ -37,25 +37,11 @@
     });
     socket.on('disconnect', function () {
     });
-    socket.on('init', function(data){
-        tempAlert('init', 1000)
-         document.getElementById('bus').textContent = data + ' 번 버스'
-    });
-    socket.on('num', function(){
-         document.getElementById('num').textContent = String(num) + '명 탑승중'
-    });
-    socket.on('message', function () {
 
+    socket.on('update', function () {
+        emit('busListUpdate')
     });
 
-    socket.on('get_on', function (data) {
-        num++
-        tempAlert(data + " 승차하였습니다.", 1000)
-    });
-    socket.on('get_off', function (data) {
-        num--
-        tempAlert(data + " 하차하였습니다.", 1000)
-    });
 
 </script>
 {% endblock %}
