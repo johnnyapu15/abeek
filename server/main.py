@@ -144,6 +144,7 @@ def show_t():
     cur = g.db.cursor()
     cur.execute(q_001)
     T = [dict(user_id = row[0], timevalue=row[1], getting=row[2], price=row[3], bus_id=row[4]) for row in cur.fetchall()]
+    cur.close()
     return render_template('show_t.html', entries = T)
 
 @io.on('busListUpdate')
