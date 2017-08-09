@@ -16,6 +16,7 @@
         document.body.appendChild(el);
     }
     socket.on('connect', function () {
+        socket.emit('bus-connect')
     });
     socket.on('disconnect', function () {
     });

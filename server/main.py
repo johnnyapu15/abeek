@@ -70,6 +70,11 @@ def busMain():
 
 @io.on('connect')
 def connected():
+    print('New session is started.')
+
+
+@io.on('bus-connect')
+def bus_connected():
     before_request()
     tmpb = session['bus_id']
     if not (tmpb is None):
