@@ -2,6 +2,14 @@
 <h1 lang = 'en'>BUS MODULE PAGE</h1>
 <p lang='en' class='f' id='bus'>bus</p>
 <p lang='en' id='num'>num</p>
+
+<div class="centered" style="
+      margin-top: 90%;
+      ">
+        <a class="hrefText " lang="en" onClick="socket.emit('bus-disconnect')" href="{{ url_for('testmain') }}" 
+        >DELETE BUS MODULE</a>
+    </div>
+
 <script type="text/javascript" src="//code.jquery.com/jquery-2.1.3.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.6/socket.io.min.js"></script>
 <script type="text/javascript" charset="utf-8">
@@ -16,7 +24,7 @@
         document.body.appendChild(el);
     }
     socket.on('connect', function () {
-        socket.emit('bus-connect')
+        socket.emit('bus-connect');
     });
     socket.on('disconnect', function () {
     });

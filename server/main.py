@@ -70,11 +70,12 @@ def busMain():
 
 @io.on('connect')
 def connected():
+    before_request()
     print('New session is started.')
 
 
 @io.on('bus-connect')
-def bus_connected():
+def bus_connect():
     before_request()
     tmpb = session['bus_id']
     if not (tmpb is None):
@@ -93,7 +94,15 @@ def bus_connected():
 
 @io.on('disconnect')
 def disconnected():
+    before_request()
     print ("%s bus-module disconnected" % (request.sid))
+
+@io.on('bus-disconnect')
+def bus_disconnect():
+    before_request()
+    del clients[session['bus_id']]
+    io.emit('update',clients, room='buslist')
+    return render_template('testmain.html')
 
 
 ###버스의 비콘 정보를 받은 후 결제할 지를 결정하는 페이지
@@ -162,7 +171,7 @@ def show_bt():
 
 @io.on('busListJoin')
 def join_bt():
-    print('joineeeeeeeeeeeeeeeeeeed')
+    before_request()
     join_room('buslist')
     io.emit('update',clients, room='buslist')
 

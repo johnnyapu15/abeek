@@ -28,7 +28,7 @@
 
         t.innerHTML = '<table style="width:100%"><tr><th>버스 번호</th><th>승객 수</th></tr><tbody id = "mtb">'
  
-        if (data!=""){
+        if (Object.keys(data).length > 0){
 
             for (var entry in data){
 
@@ -42,9 +42,7 @@
             
         }
         else{
-            var row = mtb.insertRow( 1 ); // 하단에 추가
-            var cell1 = row.insertCell(0);
-            cell1 = '버스 목록이 비어있습니다.'
+            tempAlert('버스 목록이 비어있습니다.', 3000)
         }
         t.innerHTML += '</tbody></table>'
     });
