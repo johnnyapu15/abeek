@@ -110,7 +110,8 @@ def bus_disconnect():
 def isPaying():
     if request.method == 'GET':
         flash('Using POST method to add data.')
-    if request.method == 'POST':
+        return render_template('testmain.html')
+    elif request.method == 'POST':
         if clients.get(request.form['bus_id']) != None:
             session['user_id'] = request.form['user_id']
             session['price'] = request.form['price']
