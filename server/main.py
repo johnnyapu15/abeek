@@ -108,6 +108,8 @@ def bus_disconnect():
 ###버스의 비콘 정보를 받은 후 결제할 지를 결정하는 페이지
 @app.route('/paying', methods=['post','get'])
 def isPaying():
+    if request.method == 'GET':
+        flash('Using POST method to add data.')
     if request.method == 'POST':
         if clients.get(request.form['bus_id']) != None:
             session['user_id'] = request.form['user_id']
