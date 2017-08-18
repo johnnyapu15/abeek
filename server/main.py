@@ -71,7 +71,7 @@ def busMain():
 @io.on('connect')
 def connected():
     #before_request()
-    print('New session is started.')
+    print('New session is started')
 
 
 @io.on('bus-connect')
