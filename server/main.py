@@ -31,13 +31,13 @@ clients = dict()
 
 def connect_db():
     return pymysql.connect(host=HOST, user=USERNAME, password=PASSWORD, db=DBNAME, charset='utf8')
-@app.before_request
-def before_request():
-    g.db = connect_db()
+#@app.before_request
+#def before_request():
+#    g.db = connect_db()
 
-@app.teardown_request
-def teardown_request(exception):
-    g.db.close()
+#@app.teardown_request
+#def teardown_request(exception):
+#    g.db.close()
 
 ###버스의 비콘 정보를 받은 후 결제할 지를 결정하는 페이지
 ######앱에서 세션을 채우고 페이지에 들어갈 때는 바로 해도 되겠지만
@@ -70,13 +70,13 @@ def busMain():
 
 @io.on('connect')
 def connected():
-    before_request()
+    #before_request()
     print('New session is started.')
 
 
 @io.on('bus-connect')
 def bus_connect():
-    before_request()
+    #before_request()
     tmpb = session['bus_id']
     if not (tmpb is None):
         if (tmpb != ""):
@@ -131,6 +131,7 @@ def isPaying():
 def add():
     if (session.get('getting') == None):
         abort(401)
+    g.db = connect_db()
     cur = g.db.cursor()
     
 
@@ -147,7 +148,7 @@ def add():
     cur.execute(q_002, \
                 [session['user_id'], session['getting'], session['price'], session['bus_id']])
     g.db.commit()
-    cur.close()
+    g.db.close()
     return redirect(url_for('complete'))
 
 
@@ -158,10 +159,12 @@ def complete():
 
 @app.route('/show_t')
 def show_t():
+    g.db = connect_db()
     cur = g.db.cursor()
     cur.execute(q_001)
     T = [dict(user_id = row[0], timevalue=row[1], getting=row[2], price=row[3], bus_id=row[4]) for row in cur.fetchall()]
     cur.close()
+    g.db.close()
     return render_template('show_t.html', entries = T)
 
 @io.on('busListUpdate')
@@ -174,7 +177,7 @@ def show_bt():
 
 @io.on('busListJoin')
 def join_bt():
-    before_request()
+    #before_request()
     join_room('buslist')
     io.emit('update',clients, room='buslist')
 
