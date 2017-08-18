@@ -94,12 +94,12 @@ def bus_connect():
 
 @io.on('disconnect')
 def disconnected():
-    before_request()
+#    before_request()
     print ("%s bus-module disconnected" % (request.sid))
 
 @io.on('bus-disconnect')
 def bus_disconnect():
-    before_request()
+#    before_request()
     del clients[session['bus_id']]
     io.emit('update',clients, room='buslist')
     return render_template('testmain.html')
