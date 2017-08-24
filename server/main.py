@@ -11,7 +11,7 @@ SECRET_KEY = 'dev key'
 HOST = "localhost"
 USERNAME = "abeek"
 PASSWORD = "abeek"
-DBNAME = "abeek"
+DBNAME = "mysql"
 
 
 #SQL QUERY
