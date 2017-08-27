@@ -117,9 +117,9 @@ def isPaying():
             session['price'] = request.form['price']
             session[request.form['getting']] = True
             session['bus_id'] = request.form['bus_id']
-            if request.form['getting'] == 'get_on':
+            if request.form['getting'] == '1':
                 session['getting'] = 1
-            elif request.form['getting'] == 'get_off':
+            elif request.form['getting'] == '0':
                 session['getting'] = 0
         else:
             flash('There is no bus %s.' % request.form['bus_id'])
