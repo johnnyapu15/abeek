@@ -126,6 +126,20 @@ def isPaying():
             return render_template('testmain.html')
     return render_template('main.html')
 
+###버스 모듈(파이)에 메세징
+@app.route('/bus', methods=['get'])
+def busRead():
+    if request.method == 'GET':
+        bid = request.args.get('bus_id')
+        if clients.get(bid) != None:
+            return str(clients[bid])
+        else:
+            return 'Nope.'
+
+
+
+
+
 
 @app.route('/add', methods=['GET', 'POST'])
 def add():
