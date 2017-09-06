@@ -137,8 +137,32 @@ def busRead():
         else:
             return 'Nope.'
 
-
-
+@app.route('/addDirect', methods=['GET', 'POST'])
+def addDirect():
+    if (session.get('getting') == None):
+        abort(401)
+    g.db = connect_db()
+    cur = g.db.cursor()
+    print(2222)
+    if request.method == 'GET':
+        req = request.args
+    elif request.method == 'POST':
+        req = request.args
+    if str(req.get('getting')) == '1':
+        io.emit('get_on', str(req['user_id']), room=str(req['bus_id']))
+        flash('Getting-On data was successfully saved.')
+        clients[str(req['bus_id'])] += 1
+    elif str(req.get('getting')) == '0':
+        io.emit('get_off', str(req['user_id']), room=str(req['bus_id']))
+        flash('Getting-Off data was successfully saved.')
+        clients[str(req['bus_id'])] -= 1
+    io.emit('num', clients[str(req['bus_id'])], room=str(req['bus_id']))
+    io.emit('update',clients, room='buslist')
+    cur.execute(q_002, \
+                [req['user_id'], req['getting'], req['price'], req['bus_id']])
+    g.db.commit()
+    g.db.close()
+    return redirect(url_for('complete'))
 
 
 
