@@ -139,8 +139,6 @@ def busRead():
 
 @app.route('/addDirect', methods=['GET', 'POST'])
 def addDirect():
-    if (request.args.get('getting') == None):
-        abort(401)
     g.db = connect_db()
     cur = g.db.cursor()
     print(2222)
