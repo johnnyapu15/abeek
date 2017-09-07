@@ -77,7 +77,7 @@ def connected():
 @io.on('bus-connect')
 def bus_connect():
     #before_request()
-    tmpb = session['bus_id']
+    tmpb = str(session['bus_id'])
     if not (tmpb is None):
         if (tmpb != ""):
             if clients.get(tmpb) == None:
@@ -100,7 +100,7 @@ def disconnected():
 @io.on('bus-disconnect')
 def bus_disconnect():
 #    before_request()
-    del clients[session['bus_id']]
+    del clients[str(session['bus_id'])]
     io.emit('update',clients, room='buslist')
     return render_template('testmain.html')
 
