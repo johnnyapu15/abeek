@@ -65,7 +65,7 @@ def busMain():
     if request.method == 'POST':
         if (request.form['bus_id']) != None:
             session['bus_id'] = request.form['bus_id']
-            print("posting bus id... " + session['bus_id'])
+            #print("posting bus id... " + session['bus_id'].encode('utf-8'))
             return render_template('bus-client.html')
 
 @io.on('connect')
