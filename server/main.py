@@ -154,7 +154,7 @@ def addDirect():
         io.emit('get_off', str(req['user_id']), room=(req['bus_id'].encode('utf-8')))
         flash('Getting-Off data was successfully saved.')
         clients[(req['bus_id'].encode('utf-8'))] -= 1
-    io.emit('num', clients[str(req['bus_id'])], room=(req['bus_id'].encode('utf-8')))
+    io.emit('num', clients[(req['bus_id'].encode('utf-8'))], room=(req['bus_id'].encode('utf-8')))
     io.emit('update',clients, room='buslist')
     cur.execute(q_002, \
                 [req['user_id'], req['getting'], req['price'], req['bus_id'].encode('utf-8')])
