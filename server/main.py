@@ -77,7 +77,7 @@ def connected():
 @io.on('bus-connect')
 def bus_connect():
     #before_request()
-    tmpb = str(session['bus_id'])
+    tmpb = session['bus_id'].encode('utf-8')
     if not (tmpb is None):
         if (tmpb != ""):
             if clients.get(tmpb) == None:
@@ -100,7 +100,7 @@ def disconnected():
 @io.on('bus-disconnect')
 def bus_disconnect():
 #    before_request()
-    del clients[str(session['bus_id'])]
+    del clients[(session['bus_id']).encode('utf-8')]
     io.emit('update',clients, room='buslist')
     return render_template('testmain.html')
 
@@ -133,7 +133,7 @@ def busRead():
     if request.method == 'GET':
         bid = request.args.get('bus_id')
         if clients.get(bid) != None:
-            return str(clients[bid])
+            return (clients[bid]).encode('utf-8')
         else:
             return 'Nope.'
 
@@ -147,17 +147,17 @@ def addDirect():
     elif request.method == 'POST':
         req = request.args
     if str(req.get('getting')) == '1':
-        io.emit('get_on', str(req['user_id']), room=str(req['bus_id']))
+        io.emit('get_on', str(req['user_id']), room=(req['bus_id'].encode('utf-8')))
         flash('Getting-On data was successfully saved.')
-        clients[str(req['bus_id'])] += 1
+        clients[(req['bus_id'].encode('utf-8'))] += 1
     elif str(req.get('getting')) == '0':
-        io.emit('get_off', str(req['user_id']), room=str(req['bus_id']))
+        io.emit('get_off', str(req['user_id']), room=(req['bus_id'].encode('utf-8')))
         flash('Getting-Off data was successfully saved.')
-        clients[str(req['bus_id'])] -= 1
-    io.emit('num', clients[str(req['bus_id'])], room=str(req['bus_id']))
+        clients[(req['bus_id'].encode('utf-8'))] -= 1
+    io.emit('num', clients[str(req['bus_id'])], room=(req['bus_id'].encode('utf-8')))
     io.emit('update',clients, room='buslist')
     cur.execute(q_002, \
-                [req['user_id'], req['getting'], req['price'], req['bus_id']])
+                [req['user_id'], req['getting'], req['price'], req['bus_id'].encode('utf-8')])
     g.db.commit()
     g.db.close()
     return redirect(url_for('complete'))
