@@ -112,18 +112,18 @@ def isPaying():
         flash('Using POST method to add data.')
         return render_template('testmain.html')
     elif request.method == 'POST':
-        if clients.get(request.form['bus_id']) != None:
+        if clients.get(request.form['bus_id'].encode('utf-8')) != None:
             session['user_id'] = request.form['user_id']
             session['price'] = request.form['price']
             session[request.form['getting']] = True
-            session['bus_id'] = request.form['bus_id']
+            session['bus_id'] = request.form['bus_id'].encode('utf-8')
             if request.form['getting'] == '1':
                 session['getting'] = 1
             elif request.form['getting'] == '0':
                 session['getting'] = 0
                 return redirect(url_for('add'))
         else:
-            flash('There is no bus %s.' % request.form['bus_id'])
+            flash('There is no bno bus %s.' % request.form['bus_id'])
             return render_template('testmain.html')
     return render_template('main.html')
 
