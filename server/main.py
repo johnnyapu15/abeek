@@ -123,7 +123,7 @@ def isPaying():
                 session['getting'] = 0
                 return redirect(url_for('add'))
         else:
-            flash('There is no bno bus %s.' % request.form['bus_id'])
+            flash('There is no bus %s.' % request.form['bus_id'])
             return render_template('testmain.html')
     return render_template('main.html')
 
