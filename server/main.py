@@ -149,15 +149,15 @@ def addDirect():
     if str(req.get('getting')) == '1':
         io.emit('get_on', str(req['user_id']), room=(req['bus_id'].encode('utf-8')))
         flash('Getting-On data was successfully saved.')
-        clients[(req['bus_id'].encode('utf-8'))] += 1
+        clients[(req['bus_id'])] += 1
     elif str(req.get('getting')) == '0':
         io.emit('get_off', str(req['user_id']), room=(req['bus_id'].encode('utf-8')))
         flash('Getting-Off data was successfully saved.')
-        clients[(req['bus_id'].encode('utf-8'))] -= 1
-    io.emit('num', clients[(req['bus_id'].encode('utf-8'))], room=(req['bus_id'].encode('utf-8')))
+        clients[(req['bus_id'])] -= 1
+    io.emit('num', clients[(req['bus_id'].encode('utf-8'))], room=(req['bus_id']))
     io.emit('update',clients, room='buslist')
     cur.execute(q_002, \
-                [req['user_id'], req['getting'], req['price'], req['bus_id'].encode('utf-8')])
+                [req['user_id'], req['getting'], req['price'], req['bus_id']])
     g.db.commit()
     g.db.close()
     return redirect(url_for('complete'))
