@@ -133,7 +133,7 @@ def busRead():
     if request.method == 'GET':
         bid = request.args.get('bus_id')
         if clients.get(bid) != None:
-            return (clients[bid]).encode('utf-8')
+            return str(clients[bid])
         else:
             return 'Nope.'
 
